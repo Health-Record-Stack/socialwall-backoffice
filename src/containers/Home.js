@@ -3,6 +3,7 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import Socialwall from 'socialwall-reactlib';
 import socailwallactions from '../actions/socailwallactions';
 
 const Home = ({
@@ -10,15 +11,15 @@ const Home = ({
 }) => {
   useEffect(() => {
     fetchFeed(currentLimit, currentSkip);
-  }, [currentLimit, currentSkip]);
+  }, [currentLimit, currentSkip, fetchFeed]);
 
   return (
-    <div>
-      <h1>test Home</h1>
-      {feed.map((f) => (
-        <div>{f.type}</div>
-      ))}
-    </div>
+    <>
+      <h3>Socialwall-Widget Display</h3>
+      <div>
+        <Socialwall />
+      </div>
+    </>
   );
 };
 

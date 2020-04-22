@@ -7,6 +7,7 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import configureStore from './store/configureStore';
+import 'bootstrap/dist/css/bootstrap.css';
 
 const store = configureStore({
   currentLimit: 10,
