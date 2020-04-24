@@ -1,12 +1,12 @@
-import React from "react";
-import { Switch, Route, Link } from "react-router-dom";
-import SocialwallAddBulk from "./containers/SocialwallAddBulk";
-import SocialwallUpdate from "./containers/SocialwallUpdate";
-import SocialwallAboutUs from "./containers/SocialwallAboutUs";
-import Home from "./containers/Home";
+import React from 'react';
+import { Switch, Route } from 'react-router-dom';
+import SocialwallAddBulk from './containers/SocialwallAddBulk';
+import SocialwallUpdate from './containers/SocialwallUpdate';
+import SocialwallAboutUs from './containers/SocialwallAboutUs';
+import Home from './containers/Home';
 
-import "./App.css";
-import Header from "./components/header";
+import './App.css';
+import Header from './components/header';
 
 function App() {
   return (

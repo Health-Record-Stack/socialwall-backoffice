@@ -1,14 +1,15 @@
-import { createStore, applyMiddleware, compose } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import { createLogger } from 'redux-logger';
 import rootReducer from '../reducers';
+import { composeWithDevTools } from 'remote-redux-devtools';
 
 
 const configureStore = (preloadedState) => {
   const store = createStore(
     rootReducer,
     preloadedState,
-    compose(applyMiddleware(thunk, createLogger())),
+    composeWithDevTools(applyMiddleware(thunk, createLogger())),
   );
 
   if (module.hot) {

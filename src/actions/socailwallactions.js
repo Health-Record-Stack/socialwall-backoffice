@@ -1,4 +1,7 @@
-import { fetchSocialwallSeed } from '../services/socialwall.service';
+import {
+  fetchSocialwallSeedServer,
+  updateFeedContentOnServer,
+} from '../services/socialwall.service';
 
 function fetchSocialwallFeedSuccess(feed) {
   return { type: 'SOCIALWALL_FEED_FETCH_SUCCESS', feed };
@@ -9,7 +12,7 @@ function fetchSocialwallFeedFailed(e) {
 }
 
 function fetchSocialwallFeed(limit, skip) {
-  return (dispatch) => fetchSocialwallSeed(limit, skip)
+  return (dispatch) => fetchSocialwallSeedServer(limit, skip)
     .then((response) => {
       response.json().then((feed) => {
         if (feed.status) {
@@ -23,4 +26,25 @@ function fetchSocialwallFeed(limit, skip) {
     });
 }
 
-export default { fetchSocialwallFeed };
+function updateFeedContentSuccess(updatedFeed) {
+  return { type: 'SOCIALWALL_FEED_UPDATE_SUCCESS', updatedFeed };
+}
+
+function updateFeedContentFailed(error) {
+  return { type: 'SOCIALWALL_FEED_UPDATE_FAILED', error };
+}
+
+function updateFeedContent(content) {
+  return (dispatch) => updateFeedContentOnServer(content)
+    .then((response) => {
+      response.json().then((responsedata) => {
+        if (responsedata.status) dispatch(updateFeedContentSuccess(responsedata.data));
+        else updateFeedContentFailed(responsedata.message);
+      });
+    })
+    .catch((e) => {
+      updateFeedContentFailed(e);
+    });
+}
+
+export default { fetchSocialwallFeed, updateFeedContent };
