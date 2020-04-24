@@ -1,14 +1,14 @@
-export function fetchSocialwallSeedServer(limit, skip) {
-  return fetch(
-    `http://localhost:44556/api/socialwalls?limit=${limit}&skip=${skip}`,
-  );
-}
+export const fetchSocialwallSeedServer = (limit, skip) => fetch(
+  `http://localhost:44556/api/socialwalls?limit=${limit}&skip=${skip}`,
+);
 
-export function updateFeedContentOnServer(content) {
-  const updateContent = content.html ? {
-    html: content.html,
-    createdon: new Date(content.createdon),
-  } : content;
+export const updateFeedContentOnServer = (content) => {
+  const updateContent = content.html
+    ? {
+      html: content.html,
+      createdon: new Date(content.createdon),
+    }
+    : content;
   return fetch(`http://localhost:44556/api/socialwalls/${content.id}`, {
     method: 'PATCH',
     mode: 'cors',
@@ -17,6 +17,12 @@ export function updateFeedContentOnServer(content) {
     },
     body: JSON.stringify(updateContent),
   });
-}
+};
 
-export default { fetchSocialwallSeedServer, updateFeedContentOnServer };
+export const deleteFeedOnServer = (id) => fetch(`http://localhost:44556/api/socialwalls/${id}`, {
+  method: 'delete',
+  mode: 'cors',
+  headers: {
+    'Content-Type': 'application/json',
+  },
+});

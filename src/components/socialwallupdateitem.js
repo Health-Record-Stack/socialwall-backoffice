@@ -13,7 +13,7 @@ import {
 import SocialwallItem from './socialwallitem';
 import SocialwallItemEdit from './socialwallitemedit';
 
-const SocialwallUpdateItem = ({ feed, handleSubmit }) => {
+const SocialwallUpdateItem = ({ feed, handleSubmit, handleDeleteFeed }) => {
   const [socialwallUpdate, setSocialwallUpdate] = useState(false);
   const [socialwallUpdateData, setSocialwallUpdateData] = useState({});
   const handleEnabelEdit = (feedVal) => {
@@ -41,6 +41,10 @@ const SocialwallUpdateItem = ({ feed, handleSubmit }) => {
   };
   const handleSubmitEvent = () => {
     handleSubmit(socialwallUpdateData);
+  };
+
+  const handleDelete = (id) => {
+    handleDeleteFeed(id);
   };
 
   return (
@@ -83,7 +87,7 @@ const SocialwallUpdateItem = ({ feed, handleSubmit }) => {
             <button
               type="button"
               onClick={() => {
-                handleEnabelEdit(feed);
+                handleDelete(feed._id);
               }}
             >
               <FontAwesomeIcon icon={faTrashAlt} color="red" />
@@ -111,6 +115,7 @@ const SocialwallUpdateItem = ({ feed, handleSubmit }) => {
 
 SocialwallUpdateItem.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
+  handleDeleteFeed: PropTypes.func.isRequired,
   feed: PropTypes.arrayOf(
     PropTypes.shape({
       createdon: PropTypes.string,

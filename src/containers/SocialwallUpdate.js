@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 /* eslint-disable no-underscore-dangle */
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
@@ -14,6 +15,7 @@ const SocialwallUpdate = ({
   feed,
   fetchFeed,
   updateFeedContent,
+  handleDelete,
 }) => {
   const [facebookScriptLoaded, setFacebookScriptLoaded] = useState(false);
   const [twitterScriptLoaded, setTwitterScriptLoaded] = useState(false);
@@ -52,7 +54,7 @@ const SocialwallUpdate = ({
       <h1>Update Socialwall</h1>
       <div className="d-flex flex-column">
         {feed.map((f) => (
-          <SocialwallUpdateItem key={f._id} feed={f} handleSubmit={handleSubmit} />
+          <SocialwallUpdateItem key={f._id} feed={f} handleSubmit={handleSubmit} handleDeleteFeed={handleDelete} />
         ))}
       </div>
     </>
@@ -64,6 +66,7 @@ SocialwallUpdate.propTypes = {
   currentSkip: PropTypes.number.isRequired,
   fetchFeed: PropTypes.func.isRequired,
   updateFeedContent: PropTypes.func.isRequired,
+  handleDelete: PropTypes.func.isRequired,
   feed: PropTypes.arrayOf(
     PropTypes.shape({
       createdon: PropTypes.string,
@@ -95,6 +98,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   fetchFeed: (cl, cs) => dispatch(socailwallactions.fetchSocialwallFeed(cl, cs)),
   updateFeedContent: (content) => dispatch(socailwallactions.updateFeedContent(content)),
+  handleDelete: (id) => dispatch(socailwallactions.handleDelete(id)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SocialwallUpdate);
