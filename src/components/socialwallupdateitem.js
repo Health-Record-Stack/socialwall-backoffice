@@ -28,6 +28,14 @@ const SocialwallUpdateItem = ({ feed, handleSubmit }) => {
     setSocialwallUpdateData({ ...socialwallUpdateData, html });
   };
 
+  const handleVisibility = (hide) => {
+    if (hide && !feed.ishidden) {
+      handleSubmit({ id: feed._id, ishidden: true });
+    } else if (feed.ishidden) {
+      handleSubmit({ id: feed._id, ishidden: false });
+    }
+  };
+
   const handleTimeUpdate = (createdon) => {
     setSocialwallUpdateData({ ...socialwallUpdateData, createdon });
   };
@@ -52,13 +60,34 @@ const SocialwallUpdateItem = ({ feed, handleSubmit }) => {
           </li>
           <li className="list-inline-item">
             {!feed.ishidden ? (
-              <FontAwesomeIcon icon={faEyeSlash} title="Hide" color="green" />
+              <button
+                type="button"
+                onClick={() => {
+                  handleVisibility(true);
+                }}
+              >
+                <FontAwesomeIcon icon={faEyeSlash} title="Hide" color="green" />
+              </button>
             ) : (
-              <FontAwesomeIcon icon={faEye} title="Show" color="green" />
+              <button
+                type="button"
+                onClick={() => {
+                  handleVisibility(false);
+                }}
+              >
+                <FontAwesomeIcon icon={faEye} title="Show" color="green" />
+              </button>
             )}
           </li>
           <li className="list-inline-item">
-            <FontAwesomeIcon icon={faTrashAlt} color="red" />
+            <button
+              type="button"
+              onClick={() => {
+                handleEnabelEdit(feed);
+              }}
+            >
+              <FontAwesomeIcon icon={faTrashAlt} color="red" />
+            </button>
           </li>
         </ul>
       </div>
@@ -81,7 +110,6 @@ const SocialwallUpdateItem = ({ feed, handleSubmit }) => {
 };
 
 SocialwallUpdateItem.propTypes = {
-
   handleSubmit: PropTypes.func.isRequired,
   feed: PropTypes.arrayOf(
     PropTypes.shape({

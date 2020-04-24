@@ -3,6 +3,9 @@ import { Form } from 'react-bootstrap';
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
 import PropTypes from 'prop-types';
+import { htmlEncode } from 'htmlencode';
+import decode from 'decode-html';
+
 import 'react-datepicker/dist/react-datepicker.css';
 
 const SocialwallItemEdit = ({
@@ -17,15 +20,9 @@ const SocialwallItemEdit = ({
       <Form.Control
         as="textarea"
         rows="6"
-        value={item.html}
-        onChange={(event) => handleHTMLUpdate(event.target.value)}
+        value={decode(item.html)}
+        onChange={(event) => handleHTMLUpdate(htmlEncode(event.target.value))}
       />
-      {/* <DatePicker
-        selected={moment(item.createdon).toDate()}
-        onChange={handleTimeUpdate}
-        showTimeSelect
-        dateFormat="Pp"
-      /> */}
     </Form.Group>
     <Form.Group controlId="exampleForm.ControlTextarea1">
       <Form.Label>Created On</Form.Label>
