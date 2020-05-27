@@ -1,6 +1,13 @@
-export const fetchSocialwallSeedServer = (limit, skip) => fetch(
-  `http://localhost:44556/api/socialwalls?limit=${limit}&skip=${skip}`,
-);
+import dotenv from 'dotenv';
+
+dotenv.config();
+
+export const fetchSocialwallSeedServer = (limit, skip) => {
+ 
+  return fetch(
+    `${process.env.REACT_APP_API_ENDPOINT}socialwalls?limit=${limit}&skip=${skip}`,
+  );
+};
 
 export const updateFeedContentOnServer = (content) => {
   const updateContent = content.html
@@ -9,7 +16,7 @@ export const updateFeedContentOnServer = (content) => {
       createdon: new Date(content.createdon),
     }
     : content;
-  return fetch(`http://localhost:44556/api/socialwalls/${content.id}`, {
+  return fetch(`${process.env.REACT_APP_API_ENDPOINT}socialwalls/${content.id}`, {
     method: 'PATCH',
     mode: 'cors',
     headers: {
@@ -19,7 +26,7 @@ export const updateFeedContentOnServer = (content) => {
   });
 };
 
-export const deleteFeedOnServer = (id) => fetch(`http://localhost:44556/api/socialwalls/${id}`, {
+export const deleteFeedOnServer = (id) => fetch(`${process.env.REACT_APP_API_ENDPOINT}socialwalls/${id}`, {
   method: 'delete',
   mode: 'cors',
   headers: {

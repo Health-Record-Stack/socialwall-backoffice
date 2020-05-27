@@ -17,7 +17,6 @@ const SocialwallUpdate = ({
   updateFeedContent,
   handleDelete,
 }) => {
-  const [facebookScriptLoaded, setFacebookScriptLoaded] = useState(false);
   const [twitterScriptLoaded, setTwitterScriptLoaded] = useState(false);
 
   useEffect(() => {
@@ -26,12 +25,6 @@ const SocialwallUpdate = ({
 
   useEffect(() => {
     if (feed && feed.length > 0) {
-      if (!facebookScriptLoaded) {
-        const fbScript = 'https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v6.0&appId=1670671936512008&autoLogAppEvents=1';
-        script(fbScript, 'facebook-embed', () => {
-          setFacebookScriptLoaded(true);
-        });
-      }
       if (!twitterScriptLoaded) {
         const twitterScript = 'https://platform.twitter.com/widgets.js';
 
@@ -41,7 +34,6 @@ const SocialwallUpdate = ({
       }
 
       if (twitterScriptLoaded) window.twttr.widgets.load();
-      if (facebookScriptLoaded) window.FB.XFBML.parse();
     }
   }, [feed]);
 
@@ -54,7 +46,12 @@ const SocialwallUpdate = ({
       <h1>Update Socialwall</h1>
       <div className="d-flex flex-column">
         {feed.map((f) => (
-          <SocialwallUpdateItem key={f._id} feed={f} handleSubmit={handleSubmit} handleDeleteFeed={handleDelete} />
+          <SocialwallUpdateItem
+            key={f._id}
+            feed={f}
+            handleSubmit={handleSubmit}
+            handleDeleteFeed={handleDelete}
+          />
         ))}
       </div>
     </>
