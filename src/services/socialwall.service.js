@@ -2,12 +2,9 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-export const fetchSocialwallSeedServer = (limit, skip) => {
- 
-  return fetch(
-    `${process.env.REACT_APP_API_ENDPOINT}socialwalls?limit=${limit}&skip=${skip}`,
-  );
-};
+export const fetchSocialwallSeedServer = (limit, skip) => fetch(
+  `${process.env.REACT_APP_API_ENDPOINT}socialwalls?limit=${limit}&skip=${skip}`,
+);
 
 export const updateFeedContentOnServer = (content) => {
   const updateContent = content.html

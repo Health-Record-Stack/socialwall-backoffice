@@ -1,4 +1,8 @@
-import { fetchSocialwallSeedServer, updateFeedContentOnServer, deleteFeedOnServer } from '../services/socialwall.service';
+import {
+  fetchSocialwallSeedServer,
+  updateFeedContentOnServer,
+  deleteFeedOnServer,
+} from '../services/socialwall.service';
 
 function fetchSocialwallFeedSuccess(feed) {
   return { type: 'SOCIALWALL_FEED_FETCH_SUCCESS', feed };
@@ -13,7 +17,12 @@ function fetchSocialwallFeed(limit, skip) {
     .then((response) => {
       response.json().then((feed) => {
         if (feed.status) {
-          const data = { limit, skip, feed: feed.data };
+          const data = {
+            limit,
+            skip,
+            total: Math.floor(feed.data.total / limit),
+            feed: feed.data.socialwallitems,
+          };
           dispatch(fetchSocialwallFeedSuccess(data));
         } else dispatch(fetchSocialwallFeedFailed(feed.message));
       });

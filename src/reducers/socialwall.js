@@ -7,6 +7,7 @@ const socialwall = (
   state = {
     currentLimit: 10,
     currentSkip: 0,
+    totalPages: 1,
     socialFeed: [],
   },
   action,
@@ -58,7 +59,13 @@ const socialwall = (
 
   switch (action.type) {
     case 'SOCIALWALL_FEED_FETCH_SUCCESS':
-      return { ...state, socialFeed: [...state.socialFeed, action.feed] };
+      return {
+        ...state,
+        currentLimit: action.feed.limit,
+        currentSkip: action.feed.skip,
+        totalPages: action.feed.total,
+        socialFeed: [...state.socialFeed, action.feed],
+      };
     case 'SOCIALWALL_FEED_FETCH_ERROR':
       return action.error;
     case 'SOCIALWALL_FEED_UPDATE_SUCCESS':

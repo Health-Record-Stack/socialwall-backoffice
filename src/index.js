@@ -12,6 +12,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 const store = configureStore({
   currentLimit: 10,
   currentSkip: 0,
+  totalPages: 1,
   socialFeed: [],
 });
 
